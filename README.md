@@ -4,6 +4,12 @@ A basic tutorial on how to deploy a contract, and go through the proof process.
 
 ---
 
+## TOC
+
+![Auto Generated](README/toc.png)
+
+---
+
 ## Requirements
 
 - NVM Node v16.17.0
@@ -287,4 +293,68 @@ This is because you can only mint once with that specific proof.
 
 ## Deploy ERC721 Token
 
-TBD - But very similar to ERC20
+### Step 1 - Create Configuration Files & Install Dependencies For ERC721
+
+[See ERC20 - Step 1](#step-1---create-configuration-files--install-dependencies)
+
+### Step 2 - Deploy Contract For ERC721
+
+```bash
+npx hardhat run scripts/erc721Deploy.ts --network mumbai;
+
+# Expected output:
+# Compiled x Solidity files successfully
+# ERC721zkMint deployed to 0xABc1...}
+```
+
+### Step 3 - Create Claim For ERC721
+
+[See ERC20 - Step 3](#step-3---create-claim)
+
+### Step 4 - Set ZKP Request For ERC721
+
+Modify the following file
+
+**File:** `./scripts/erc721ZkpRequest.ts`
+
+```ts
+    // Change to copied schemaHas from claim in Step 2C
+    const schemaHash = "9c2498080a90d43cada7fec79eeee8de";
+    // Changed to deployed contract
+    const ERC721VerifierAddress = "0x085523dF632FEaAE3Ae232E0EBc31FaC9956ddAb";
+    const schemaEnd = fromLittleEndian(hexToBytes(schemaHash));
+    const query = {
+        schema: ethers.BigNumber.from(schemaEnd),
+        slotIndex: 2,
+        operator: 2,
+        // Change to 10 or value that you want to use (eg. everything greater than 10)
+        value: [10, ...new Array(63).fill(0).map(i => 0)],
+        circuitId,
+    };
+```
+
+Set it on the contract:
+
+```bash
+npx hardhat run --network mumbai scripts/erc721ZkpRequest.ts;
+
+# Expected output:
+# Request set at:
+# NOTE: May take a little bit to show up
+# https://mumbai.polygonscan.com/tx/0x60ac...
+```
+
+### Step 5 - QR Code Proof Request For ERC721
+
+[See ERC20 - Step 5](#step-5---qr-code-proof-request)
+
+### Step 6 - Mint NFT With Proof For ERC721
+
+[See ERC20 - Step 6](#step-6---mint-airdrop-with-proof)
+
+### Step 7 - See On OpenSea
+
+Go to your [OpenSea Account](https://testnets.opensea.io/account), connect your wallet, and see the minted hex colour nft.
+
+![OpenSea Minted NFT](README/opensea.png)
+
