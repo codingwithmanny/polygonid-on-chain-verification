@@ -25,10 +25,12 @@ There are 3 entities in SSI (Self-Sovereign Identify) for the "Trust Triangle" (
 
 ## Deploy ERC20 Token
 
-### Step 1 - Create Configuration Files
+### Step 1 - Create Configuration Files & Install Dependencies
 
 ```bash
 cp .env.example .env;
+
+yarn;
 ```
 
 Fill in the following details to deploy the proper contract
