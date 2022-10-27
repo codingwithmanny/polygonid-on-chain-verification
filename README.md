@@ -163,7 +163,7 @@ yarn dev;
 #   ➜  Network: use --host to expose
 ```
 
-### Step 6 - Mint Airdop With Proof
+### Step 6 - Mint Airdrop With Proof
 
 ![Mint](README/mint-01.png)
 
