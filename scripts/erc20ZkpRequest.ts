@@ -21,7 +21,7 @@ const main = async () => {
     const verifierContract = "ERC20Verifier";
     // Schema has provided by the issuer
     // - typically found in https://platform-test.polygonid.com/claiming/created-schemas
-    const schemaHash = "f91912b9332bb22be08b4e10fe9eda9a"; // extracted from PID Platform
+    const schemaHash = "9c2498080a90d43cada7fec79eeee8de"; // extracted from PID Platform
     // Deployed contract address
     const ERC20VerifierAddress = "0x085523dF632FEaAE3Ae232E0EBc31FaC9956ddAb";
     const schemaEnd = fromLittleEndian(hexToBytes(schemaHash));
@@ -35,10 +35,10 @@ const main = async () => {
         // 3 = greater-than
         // 4 = in
         // 5 = not-in
-        operator: 3,
+        operator: 2,
         // 20020101 refers to the numerical date we're using for our proof request
         // - see proofRequest.ts L489
-        value: [10, ...new Array(63).fill(0).map(i => 0)], // the value must be 1 = true
+        value: [20020101, ...new Array(63).fill(0).map(i => 0)], // the value must be 1 = true
         circuitId,
     };
 
